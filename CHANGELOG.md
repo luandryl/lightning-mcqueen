@@ -2,6 +2,11 @@
 
 Material workflow changes, newest first.
 
+## 2026-09-09 — Claude Code and Codex installer targets
+
+- Made `install.sh` install every retained skill into both `~/.claude/skills/` and `~/.codex/skills/` by default.
+- Added `--target claude`, `--target codex`, and `--target all` while preserving collision backups through `--force`.
+
 ## 2026-09-09 — Cost-aware subagent routing
 
 - Standardized a direct-versus-delegated cost calculation across all five skills.

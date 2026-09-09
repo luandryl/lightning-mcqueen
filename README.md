@@ -32,7 +32,9 @@ cd lightning-mcqueen
 ./install.sh
 ```
 
-The installer symlinks each directory in `skills/` into `~/.claude/skills/`. Editing either path therefore updates this repository rather than creating an untracked copy.
+By default, the installer symlinks each directory in `skills/` into both `~/.claude/skills/` and `~/.codex/skills/`. Editing any linked path therefore updates this repository rather than creating an untracked copy.
+
+Use `./install.sh --target claude` or `./install.sh --target codex` to install for only one runtime.
 
 Use `./install.sh --force` only when you want an existing real skill directory backed up and replaced by the repository symlink.
 
@@ -47,7 +49,7 @@ There are no MCP-server, issue-tracker, or third-party-skill dependencies.
 
 ```text
 skills/          The five hand-written skills and their local references
-install.sh       Symlinks repository skills into ~/.claude/skills/
+install.sh       Symlinks repository skills into Claude Code and Codex
 CLAUDE.md        Maintenance rules for this content repository
 CHANGELOG.md     Material workflow changes
 ```

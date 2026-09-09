@@ -39,9 +39,10 @@ Only these skill directories belong in the repository:
 
 ```text
 ~/.claude/skills/<name> → <repository>/skills/<name>
+~/.codex/skills/<name>  → <repository>/skills/<name>
 ```
 
-The repository remains the origin. Do not copy skills into `~/.claude/skills/`; copies drift.
+Both destinations are installed by default. The repository remains the origin; do not copy skills into either destination because copies drift. Use `--target claude` or `--target codex` when only one runtime should be configured.
 
 ## Dependencies
 
