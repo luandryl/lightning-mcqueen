@@ -4,7 +4,7 @@ description: Transform an approved domain in docs/domain/DOMAIN.md into a cohere
 disable-model-invocation: true
 metadata:
   author: Luan Andryl
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # Model Design
@@ -36,13 +36,22 @@ Use a pattern only when a concrete domain or operational property justifies it.
 
 Delegate only bounded, independent analyses. When the runtime supports model and reasoning selection, use the smallest capable model:
 
+Before delegating, compare:
+
+```text
+delegated cost = briefing/context transfer + subagent execution + main-agent validation and synthesis
+direct cost = main-agent execution
+```
+
+Delegate only when the delegated cost is clearly lower, or when parallel analysis materially improves the result without lowering confidence. Batch related mechanical work into one assignment, reuse an existing subagent for follow-ups, and avoid delegation when the task requires most of the main agent's context.
+
 | Class | Model | Effort | Examples |
 |---|---|---|---|
 | Mechanical | Lightweight available model | `low` | Inventory entities/tables/contracts, extract endpoints and events, organize references, fill the current-model snapshot |
 | Bounded analysis | Mid-tier available model | `medium` | Analyze one state machine, candidate boundary, policy, failure flow, or isolated persistence mapping |
 | Critical or cross-cutting | Main agent; independent high-capability reviewer only when justified | `high` | Finalize the conceptual model, decide aggregate/module boundaries, choose consistency trade-offs, consolidate migration, open the planning gate |
 
-Do not give a lightweight model decisions that cross several concepts, change invariants, or redefine semantics inherited from `DOMAIN.md`. Subagents return alternatives, evidence, risks, and open decisions; the main agent owns the final model. If model selection is unavailable, keep the task routing and use the inherited model with the lowest suitable effort. Do not delegate when coordination would cost more than direct execution.
+Do not give a lightweight model decisions that cross several concepts, change invariants, or redefine semantics inherited from `DOMAIN.md`. Subagents return alternatives, evidence, risks, and open decisions; the main agent owns the final model. If model selection is unavailable, keep the task routing and use the inherited model with the lowest suitable effort.
 
 ## Procedure
 

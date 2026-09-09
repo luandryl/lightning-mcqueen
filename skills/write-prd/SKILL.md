@@ -3,7 +3,7 @@ name: write-prd
 description: Turn a feature idea into a scoped Product Requirements Document after inspecting available domain artifacts and the codebase. Use when the problem, goals, user-visible behavior, boundaries, and success criteria must be agreed before user stories or implementation.
 metadata:
   author: Luan Andryl
-  version: "3.0.0"
+  version: "3.1.0"
 ---
 
 # Write PRD
@@ -34,6 +34,27 @@ If present, read these artifacts before drafting:
 Use approved artifacts as constraints. Do not silently contradict them. If a product decision exposes a semantic gap that could change identity, state, invariants, authority, or a source of truth, stop drafting that portion and recommend revisiting `domain-discovery`. If technical modeling is materially unresolved, recommend `model-design`.
 
 Do not require those artifacts for a small feature that introduces no meaningful domain ambiguity.
+
+## Subagent and Model Routing
+
+Delegate only bounded, independent tasks. Before delegating, compare:
+
+```text
+delegated cost = briefing/context transfer + subagent execution + main-agent validation and synthesis
+direct cost = main-agent execution
+```
+
+Delegate only when the delegated cost is clearly lower, or when parallel investigation materially improves coverage without lowering confidence. Batch related searches into one assignment, reuse an existing subagent for follow-ups, and keep small or context-heavy PRDs with the main agent.
+
+When the runtime supports model and reasoning selection, use the smallest capable model:
+
+| Class | Model | Effort | Examples |
+|---|---|---|---|
+| Mechanical | Lightweight available model | `low` | Map relevant files, locate similar features, inventory endpoints/configuration, collect references for the key-files tables |
+| Bounded analysis | Mid-tier available model | `medium` | Reconstruct one user flow, compare one existing pattern, investigate one integration or isolated technical constraint |
+| Critical or cross-cutting | Main agent; independent high-capability reviewer only when justified | `high` | Define scope and non-goals, resolve product trade-offs, reconcile domain/model constraints, approve the final PRD |
+
+Do not ask a lightweight model to infer requirements, decide scope, or reconcile contradictions. Subagents return evidence, uncertainties, and source paths; the main agent owns product synthesis and validation. If model selection is unavailable, preserve the routing and use the inherited model with the lowest suitable effort.
 
 ## Workflow
 

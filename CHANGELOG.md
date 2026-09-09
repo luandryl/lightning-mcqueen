@@ -2,6 +2,12 @@
 
 Material workflow changes, newest first.
 
+## 2026-09-09 — Cost-aware subagent routing
+
+- Standardized a direct-versus-delegated cost calculation across all five skills.
+- Added smallest-capable-model routing to `write-prd`, `write-user-stories`, and `story-loop`.
+- Tightened `story-loop` delegation to avoid per-phase agent fan-out, duplicated context, routine high-capability reviews, and parallel edits with shared state.
+
 ## 2026-09-09 — Renamed to Lightning McQueen
 
 - Renamed the project and local directory to `Lightning McQueen` / `lightning-mcqueen`.

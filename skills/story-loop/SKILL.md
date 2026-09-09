@@ -3,16 +3,46 @@ name: story-loop
 description: Implement an approved user-stories document autonomously, one story at a time, with research, tests, verification, diff review, acceptance checks, git delivery, and optional PR self-review. Use when asked to run the story loop or implement a PRD or stories document end to end.
 metadata:
   author: Luan Andryl
-  version: "2.0.0"
+  version: "2.1.0"
 ---
 
 # Story Loop
 
 Run an implementation loop over an approved source of work. The preferred input is `user-stories.md`; a PRD or bare feature request must first pass through the upstream planning skills described in `INTAKE.md`.
 
-Act as an orchestrator when subagents are available, but keep ownership of scope, decisions, verification evidence, and the final result. Delegate only concrete, bounded tasks. If delegation is unavailable or would cost more than direct execution, perform the same steps yourself.
+Act as an orchestrator when subagents are available and the routing gate below favors delegation, but keep ownership of scope, decisions, verification evidence, and the final result. Delegate only concrete, bounded tasks. If delegation is unavailable or would cost more than direct execution, perform the same steps yourself.
 
 Read the target repository's `CLAUDE.md`, `AGENTS.md`, and `README.md` before implementation. Repository instructions override generic process guidance here.
+
+## Subagent and Model Routing
+
+Optimize total run cost, not the number of main-agent tokens in isolation. Before delegating, compare:
+
+```text
+delegated cost = briefing/context transfer + subagent execution + main-agent validation and synthesis + merge/conflict risk
+direct cost = main-agent execution
+```
+
+Delegate only when the delegated cost is clearly lower, or when safe parallelism materially reduces elapsed time without lowering confidence. A small story should normally stay with the main agent. Batch compatible research, implementation, and tests for one bounded area into a single assignment instead of spawning one agent per phase. Reuse an existing subagent for follow-ups when its context remains relevant.
+
+When the runtime supports model and reasoning selection, use the smallest capable model:
+
+| Class | Model | Effort | Examples |
+|---|---|---|---|
+| Mechanical | Lightweight available model | `low` | Large file/reference inventory, locate tests and call sites, summarize long command output, build a read-only evidence index |
+| Bounded analysis or implementation | Mid-tier available model | `medium` | Research one isolated subsystem, implement a self-contained change with explicit acceptance criteria, add focused tests, review a bounded diff |
+| Critical or cross-cutting | Main agent; independent high-capability reviewer only when risk justifies its added cost | `high` | Resolve scope or architecture, change authorization/concurrency/data semantics, approve migrations, perform final acceptance and delivery decisions |
+
+Apply these cost controls throughout the loop:
+
+- do not delegate a task whose brief must reproduce most of the source artifacts or repository context;
+- do not create separate research, implementation, test, and review subagents by default;
+- parallelize only stories or investigations with satisfied dependencies and no overlapping files, git state, or decisions;
+- keep final diff review, verification evidence, acceptance mapping, and externally visible git actions with the main agent;
+- use a high-capability reviewer only for high-risk changes or unresolved findings, not as a routine second pass;
+- if model selection is unavailable, preserve the task routing and use the inherited model with the lowest suitable effort.
+
+Subagents must return changed files or evidence paths, commands run, observed results, risks, and uncertainties. The main agent validates their work before accepting it.
 
 ## Invocation
 

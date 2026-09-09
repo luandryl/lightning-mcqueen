@@ -4,7 +4,7 @@ description: Semantically investigate a problem and the existing codebase before
 disable-model-invocation: true
 metadata:
   author: Luan Andryl
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # Domain Discovery
@@ -50,13 +50,22 @@ Use parallel subagents only when they materially improve coverage. Split concret
 
 Delegate only bounded, independent tasks. When the runtime supports model and reasoning selection, use the smallest capable model:
 
+Before delegating, compare:
+
+```text
+delegated cost = briefing/context transfer + subagent execution + main-agent validation and synthesis
+direct cost = main-agent execution
+```
+
+Delegate only when the delegated cost is clearly lower, or when parallel coverage materially improves the result without lowering confidence. Batch related mechanical searches into one assignment, reuse an existing subagent for follow-ups, and avoid delegation when the task requires most of the main agent's context.
+
 | Class | Model | Effort | Examples |
 |---|---|---|---|
 | Mechanical | Lightweight available model | `low` | Map files, enumerate schemas/enums/endpoints, collect names, locate references, build an evidence index |
 | Bounded analysis | Mid-tier available model | `medium` | Reconstruct one workflow, compare two sources, find contradictions or invariant candidates in one area |
 | Critical or cross-cutting | Main agent; independent high-capability reviewer only when justified | `high` | Resolve semantic ambiguity, consolidate concepts, classify P0 questions, decide whether the gate can open |
 
-Do not give a lightweight model work that requires resolving ambiguity, combining many codebase areas, or deciding final semantics. Ask it to return evidence with paths, symbols, confidence, and uncertainties. The main agent validates and synthesizes. If model selection is unavailable, keep the task routing and use the inherited model with the lowest suitable effort. Do not delegate when coordination would cost more than direct execution.
+Do not give a lightweight model work that requires resolving ambiguity, combining many codebase areas, or deciding final semantics. Ask it to return evidence with paths, symbols, confidence, and uncertainties. The main agent validates and synthesizes. If model selection is unavailable, keep the task routing and use the inherited model with the lowest suitable effort.
 
 ### 3. Reconstruct Domain Language
 

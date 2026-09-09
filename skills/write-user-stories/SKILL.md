@@ -3,7 +3,7 @@ name: write-user-stories
 description: Turn an approved PRD into sequenced, implementation-ready UI and backend stories with acceptance criteria, concrete test specifications, dependencies, and requirement traceability. Use after write-prd and before story-loop.
 metadata:
   author: Luan Andryl
-  version: "2.0.0"
+  version: "2.1.0"
 ---
 
 # Write User Stories
@@ -19,6 +19,27 @@ Accept a PRD path or locate the most recent `prd.md` under `docs/`. Read it comp
 Also read referenced `DOMAIN.md` and `MODEL.md` artifacts when present. Preserve their approved semantics and technical decisions. If the PRD contradicts them or leaves a blocking requirement unresolved, report the conflict instead of hiding it inside a story.
 
 Treat non-goals as hard boundaries. If a natural implementation shape crosses one, stop the story at that boundary and state the exclusion.
+
+## Subagent and Model Routing
+
+Delegate only bounded, independent tasks. Before delegating, compare:
+
+```text
+delegated cost = briefing/context transfer + subagent execution + main-agent validation and synthesis
+direct cost = main-agent execution
+```
+
+Delegate only when the delegated cost is clearly lower, or when parallel analysis materially improves coverage without lowering confidence. Batch related work into one assignment, reuse an existing subagent for follow-ups, and keep a small PRD or tightly coupled story set with the main agent.
+
+When the runtime supports model and reasoning selection, use the smallest capable model:
+
+| Class | Model | Effort | Examples |
+|---|---|---|---|
+| Mechanical | Lightweight available model | `low` | Extract requirements, build an initial traceability index, inventory referenced files/contracts, check numbering and backward-only dependencies |
+| Bounded analysis | Mid-tier available model | `medium` | Draft test scenarios for one bounded story, decompose one isolated subsystem, compare a story against its applicable template |
+| Critical or cross-cutting | Main agent; independent high-capability reviewer only when justified | `high` | Choose story boundaries and sequence, reconcile UI/backend contracts, resolve scope conflicts, validate complete PRD traceability |
+
+Do not ask a lightweight model to invent story boundaries, resolve product ambiguity, or approve completeness. Subagents return candidate work, evidence, and gaps; the main agent owns final decomposition, sequencing, and validation. If model selection is unavailable, preserve the routing and use the inherited model with the lowest suitable effort.
 
 ## Workflow
 
