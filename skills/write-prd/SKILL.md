@@ -1,180 +1,138 @@
 ---
 name: write-prd
-description: Transform a feature idea into a Product Requirements Document. Use this skill when you need to define the why, what, and scope of a feature before implementation. Produces a PRD that feeds into write-user-stories for actionable breakdown.
+description: Turn a feature idea into a scoped Product Requirements Document after inspecting available domain artifacts and the codebase. Use when the problem, goals, user-visible behavior, boundaries, and success criteria must be agreed before user stories or implementation.
 metadata:
-  author: Bruno Zaninello
-  version: "2.1.0"
+  author: Luan Andryl
+  version: "3.0.0"
 ---
 
 # Write PRD
 
-Transform a raw feature idea into a Product Requirements Document (PRD) that defines the problem, scope, and shape of a feature. The output is a markdown file at `docs/YYYY_MM_DD_feature_name/prd.md`.
+Turn a feature idea into a Product Requirements Document at `docs/YYYY_MM_DD_feature_name/prd.md`.
 
-## Philosophy
+The PRD defines why the work matters and what outcome is required. It may include relevant technical constraints, but it must not become an implementation plan.
 
-A PRD answers "why are we building this?" and "what does it look like when it's done?" — before anyone writes code.
+## Principles
 
-1. **Problem first** — Start with the pain point or opportunity, not the solution
-2. **Scope explicitly** — Goals and non-goals prevent scope creep and misaligned effort
-3. **Simplest solution that achieves the outcome** — Aim for 80% of the value at 20% of the effort. The PRD's job is to reach the desired outcome, not to anticipate every future need. No speculative flexibility, no premature scale, no niceties that aren't immediately useful
-4. **Describe from the user's perspective** — What the user experiences, not how the code works
-5. **Technical context supports, doesn't lead** — Architecture and constraints inform decisions but don't dominate the document
-6. **Omit what doesn't apply** — Empty sections are noise. If there are no breaking changes, don't include the section
-7. **Point to real code, not snippets** — File paths with line numbers stay accurate; pasted code rots
+- Start with the problem and user outcome, not a proposed solution.
+- Make goals and non-goals explicit.
+- Prefer the smallest scope that achieves the outcome; reject speculative flexibility and imagined scale.
+- Describe observable behavior from the user's perspective.
+- Ground claims in domain artifacts and the actual codebase.
+- Omit conditional sections that do not apply.
+- Reference real files and symbols instead of copying implementation snippets.
+
+## Inputs and Upstream Artifacts
+
+Read the user's request first, then inspect the repository instructions and relevant code.
+
+If present, read these artifacts before drafting:
+
+- `docs/domain/DOMAIN.md` for approved semantics, invariants, language, and sources of truth;
+- `docs/domain/MODEL.md` for approved boundaries, contracts, persistence, and operational constraints.
+
+Use approved artifacts as constraints. Do not silently contradict them. If a product decision exposes a semantic gap that could change identity, state, invariants, authority, or a source of truth, stop drafting that portion and recommend revisiting `domain-discovery`. If technical modeling is materially unresolved, recommend `model-design`.
+
+Do not require those artifacts for a small feature that introduces no meaningful domain ambiguity.
 
 ## Workflow
 
-### Step 1: Understand the Problem
+### 1. Investigate
 
-Parse the user's raw input. Identify:
-- The problem being solved or the opportunity being captured
-- Who is affected (which users, roles, or personas)
-- Why this matters now
+Identify the problem, affected users, urgency, desired outcome, and stated constraints. Then inspect:
 
-**Ask clarifying questions before exploring.** Don't assume — confirm intent, scope boundaries, and any constraints the user has in mind.
+- similar features and established patterns;
+- likely files and interfaces affected;
+- reusable components or services;
+- relevant APIs, events, jobs, storage, and integrations;
+- repository conventions in `CLAUDE.md`, `AGENTS.md`, or `README.md`.
 
-### Step 2: Research the Codebase
+Resolve discoverable facts before asking questions. Ask only focused questions whose answers materially change scope or behavior.
 
-Understand the landscape this feature lives in:
-- Look for similar features already implemented (e.g., AR invoices when building AP bills)
-- Identify files that will need modification
-- Note reusable components, shared utilities, or patterns to follow
-- Read the project's `CLAUDE.md` for conventions and patterns
-- Identify constraints that will shape the solution
+### 2. Lock Scope
 
-Use the Explore agent or Glob/Grep tools to search thoroughly. Record file paths for everything you reference.
+Propose goals, non-goals, and any remaining decision points with trade-offs. Recommend the simplest viable option when evidence supports one.
 
-### Step 3: Research External Interfaces (if applicable)
+For every proposed goal, ask whether removing or shrinking it would still achieve the outcome. Move anything justified only as “nice to have,” future flexibility, premature scale, or polish into non-goals with a short reason.
 
-When the feature involves external interfaces, research what already exists:
+Do not proceed as though an unresolved product decision were approved. Record non-blocking unknowns under `Perguntas em Aberto`.
 
-- **Consuming an API:** Fetch specs, map schemas, identify new vs. modified endpoints
-- **Exposing an API:** Design endpoints, define schemas, document errors
-- **Other interfaces:** CLI commands, message queues, webhooks, file formats
+### 3. Draft
 
-### Step 4: Define Scope with User
+Create `docs/YYYY_MM_DD_feature_name/prd.md` using today's date and a snake_case feature name.
 
-Present your findings and surface decisions that need to be made:
-- Propose goals and non-goals based on what you've learned
-- List each decision point with options and trade-offs
-- Propose a recommended option where you have enough context — **default to the simplest option that achieves the outcome.** The burden of proof is on the more complex option, not the simpler one
-- Flag things you couldn't resolve
+Write the entire artifact in Brazilian Portuguese (PT-BR), including headings and prose. Preserve code identifiers, paths, payload fields, enum values, protocol names, and established technical terms when translation would reduce precision.
 
-**Run a simplicity pass before locking scope.** For each goal, ask: "does removing or shrinking this still achieve the outcome?" Anything that survives only because it's "nice to have," "might be needed later," or "would handle scale we don't have" moves to Non-Goals with a one-line reason.
+### 4. Validate
 
-Iterate until the scope is locked — all decisions are either resolved or explicitly deferred to Open Questions.
+Before presenting the PRD, verify that:
 
-### Step 5: Draft the PRD
+- every goal traces to the problem statement;
+- every explicit non-goal remains excluded elsewhere in the document;
+- success criteria are observable;
+- technical context supports rather than replaces product requirements;
+- file references exist and are relevant;
+- no unresolved question is presented as a decision.
 
-Create the file at `docs/YYYY_MM_DD_feature_name/prd.md` using today's date and a snake_case feature name.
+Present the draft and incorporate user corrections. The approved PRD becomes the input to `write-user-stories`.
 
-Follow the Document Structure below. **Only include sections that apply** — omit any conditional section that has no content.
+## Artifact Structure
 
-### Step 6: Review with User
+Always include:
 
-Present the draft. Iterate on corrections, missing details, or structural changes until the user approves.
+```md
+# PRD: <nome da funcionalidade>
 
-## Document Structure
-
-### Required Sections (always present)
-
-#### 1. Problem Statement
-Why does this feature need to exist? What pain point are we addressing or what opportunity are we capturing? 2-4 sentences that ground everything that follows.
-
-#### 2. Goals & Non-Goals
-
-**Goals** — What this feature will achieve. Be specific and measurable where possible.
-
-**Non-Goals** — What is explicitly out of scope. This prevents scope creep and misaligned assumptions. Include complexity that was *deliberately simplified away* during the simplicity pass — caching, batching, configurability, edge-case polish, scale concerns — each with a one-line reason (e.g. "Non-goal: bulk import — current volume is ~10/day, manual entry suffices"). Cut scope written down is a decision; cut scope omitted creeps back in during user stories.
-
-#### 3. Feature Description
-What the feature does, described from the user's perspective. Focus on outcomes and behaviors, not implementation. This is the "what it looks like when it's done" section.
-
-### Conditional Sections (include only when applicable — omit entirely otherwise)
-
-#### 4. User Flows
-Step-by-step user interactions when there's a UI component or multi-step process. Describe the happy path first, then variations and error states.
-
-#### 5. Technical Context
-Relevant architecture, existing patterns, and constraints that shape the solution. This is where you reference existing code patterns, explain why certain approaches are preferred, and note technical limitations.
-
-When existing code demonstrates the pattern to follow, include a reference table:
-
-| File | What to reference |
-|------|-------------------|
-
-#### 6. API Surface
-When the feature exposes or consumes API endpoints. Organize into sub-sections as needed:
-- **New Endpoints** — Method, path, description
-- **Modified Endpoints** — Method, path, what changed
-- **Request Schemas** — Field tables with type, required, constraints
-- **Response Schemas** — Field tables with type and notes
-- **List Endpoint Filters** — Query parameters
-- **Error Formats** — Error response shapes
-- **Enums** — Value tables with descriptions
-
-Only include the sub-sections that have content.
-
-#### 7. Data Model Changes
-When the feature involves database or storage changes:
-- **New tables/collections** — Columns, types, constraints, indexes
-- **Modified tables** — New columns, changed types, new indexes
-- **Migrations** — Ordering, reversibility, data backfills
-- **Key relationships** — Foreign keys, cascading behavior
-
-#### 8. Breaking Changes
-When existing behavior changes in backward-incompatible ways. Each change gets:
-- A numbered heading describing the change
-- **Impact:** What breaks and where
-- **Action:** What must be done to handle it
-
-#### 9. Success Criteria
-How we know this feature is working. Measurable outcomes, acceptance criteria, or observable behaviors that indicate the feature is complete and correct.
-
-#### 10. Configuration & Environment
-When the feature introduces new configuration:
-- New environment variables
-- Feature flags
-- Config file changes
-- New dependencies or service connections
-
-### Required Sections (always last)
-
-#### 11. Key Files
-Two tables:
-
-**Existing Files to Modify:**
-| File | Changes |
-|------|---------|
-
-**New Files to Create:**
-| File | Purpose |
-|------|---------|
-
-This section serves as a navigational summary of everything discussed above.
-
-#### 12. Open Questions
-Unresolved unknowns, things deferred to future investigation, dependencies on decisions from others. Each item explains what's unknown and why it couldn't be resolved now.
-
-If there are no open questions, state "None — all decisions resolved during requirements gathering."
-
-## Anti-Patterns to Avoid
-
-- **Pasting code blocks** — They go stale. Point to files with line numbers instead
-- **Including empty sections** — If "Breaking Changes" doesn't apply, omit it entirely
-- **Leading with technical details** — Problem and goals come first. Technical context supports
-- **Writing implementation instructions** — This is a PRD, not a how-to guide. Describe *what* needs to happen, not *how* to code it. Implementation breakdown belongs in user stories
-- **Skipping the research step** — Don't write a PRD from imagination. Read the actual code first
-- **Being vague about scope** — "Support advanced filtering" is not a goal. "Users can filter invoices by status, date range, and customer" is
-- **Designing for imagined scale** — Don't plan for load, volume, or concurrency you're nowhere near having
-- **Speculative generality** — No config options, abstractions, extension points, or "phase 2 hooks" without a concrete, current need
-- **Gold-plating the goal list** — Every goal must trace back to the problem statement; if cutting it still achieves the outcome, it's a non-goal
-
-## Output
-
-The final deliverable is a single markdown file:
-```
-docs/YYYY_MM_DD_feature_name/prd.md
+## 1. Declaração do Problema
+## 2. Objetivos e Não Objetivos
+## 3. Descrição da Funcionalidade
 ```
 
-This document is the input for the next step: writing user stories (handled by the `/write-user-stories` skill).
+Include only the applicable conditional sections, preserving this order:
+
+```md
+## 4. Fluxos do Usuário
+## 5. Contexto Técnico
+## 6. Superfície de API
+## 7. Alterações no Modelo de Dados
+## 8. Alterações Incompatíveis
+## 9. Critérios de Sucesso
+## 10. Configuração e Ambiente
+```
+
+Always end with:
+
+```md
+## 11. Arquivos Principais
+## 12. Perguntas em Aberto
+```
+
+Under `Arquivos Principais`, include separate tables for existing files to modify and new files to create. Cite paths and relevant symbols or line numbers where useful.
+
+Under `Perguntas em Aberto`, explain what remains unknown and why it could not be resolved. If none remain, state: `Nenhuma — todas as decisões foram resolvidas durante o levantamento de requisitos.`
+
+## Content Guidance
+
+- `Declaração do Problema`: two to four sentences describing the pain or opportunity.
+- `Objetivos e Não Objetivos`: specific outcomes and explicit scope exclusions, including deliberately removed complexity.
+- `Descrição da Funcionalidade`: observable behavior and outcomes, without implementation steps.
+- `Fluxos do Usuário`: happy path, variations, empty/loading/error states when relevant.
+- `Contexto Técnico`: existing patterns, constraints, and source references only.
+- `Superfície de API`: operations, schemas, errors, compatibility, and versioning as applicable.
+- `Alterações no Modelo de Dados`: semantic data changes and constraints; derive details from an approved `MODEL.md` when available.
+- `Alterações Incompatíveis`: impact and required response for each incompatible change.
+- `Critérios de Sucesso`: measurable or directly observable completion signals.
+- `Configuração e Ambiente`: new variables, flags, dependencies, or service connections.
+
+## Boundaries
+
+Do not:
+
+- invent requirements from implementation details;
+- add implementation tasks, commit plans, or code snippets;
+- include empty sections;
+- weaken a non-goal elsewhere in the document;
+- design for hypothetical volume or future reuse without current evidence;
+- draft from imagination when repository evidence is available.
+
+At completion, report only the main scope decisions, open questions, and the path to the PRD.

@@ -103,8 +103,7 @@ if [[ -n "$dangling" ]]; then
 fi
 
 echo
-echo "Third-party skills and MCP servers are not installed by this script."
-echo "See the Dependencies section of README.md."
+echo "Done. This workflow has no MCP-server or third-party-skill dependencies."
 
 # Skips mean the install is incomplete — don't let a caller chained with && treat that as success.
 if [[ $skipped -gt 0 ]]; then
