@@ -2,7 +2,7 @@
 
 > Ka-chow: from domain discovery to verified implementation, one story at a time.
 
-Lightning McQueen is Luan Andryl's personal fork of [brunoanken/my-agentic-workflow](https://github.com/brunoanken/my-agentic-workflow), reduced and adapted to his real day-to-day workflow. It intentionally keeps only the five skills he uses.
+Lightning McQueen is my personal fork of [brunoanken/my-agentic-workflow](https://github.com/brunoanken/my-agentic-workflow), reduced and adapted to my real day-to-day workflow. It intentionally keeps only the five skills I use.
 
 The repository is the source of truth. Skill instructions are written in English; generated planning and operational artifacts are written in Brazilian Portuguese (PT-BR).
 
