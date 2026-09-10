@@ -2,6 +2,13 @@
 
 Material workflow changes, newest first.
 
+## 2026-09-10 — Repository documentation archaeology
+
+- Added `docs-analitics` to audit existing documentation across the current state, unmerged branches, and history, with independent factual validation before consolidation.
+- Translated skill instructions into English and provided PT-BR artifact templates, including consolidated documentation, AGENTS.md, readiness reports, and telemetry summaries.
+- Preserved the no-documentation stop gate, LOW/MEDIUM/HIGH routing, seven-document concurrency cap, and honest telemetry requirements.
+- Documented the agent-delegation requirement; unavailable model/consumption metrics remain explicit rather than fabricated.
+
 ## 2026-09-09 — Claude Code and Codex installer targets
 
 - Made `install.sh` install every retained skill into both `~/.claude/skills/` and `~/.codex/skills/` by default.

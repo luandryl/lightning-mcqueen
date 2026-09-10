@@ -1,6 +1,6 @@
 # Lightning McQueen
 
-Lightning McQueen is Luan Andryl's personal fork of `brunoanken/my-agentic-workflow`, adapted to his day-to-day workflow and reduced to five hand-written Claude Code skills.
+Lightning McQueen is Luan Andryl's personal fork of `brunoanken/my-agentic-workflow`, adapted to his day-to-day workflow and focused on six hand-written skills for Claude Code and Codex.
 
 Upstream: <https://github.com/brunoanken/my-agentic-workflow>
 
@@ -16,6 +16,7 @@ Invoke an installed skill through the runtime's skill mechanism when the task ge
 
 Only these skill directories belong in the repository:
 
+- `docs-analitics`
 - `domain-discovery`
 - `model-design`
 - `write-prd`
@@ -47,6 +48,8 @@ Both destinations are installed by default. The repository remains the origin; d
 ## Dependencies
 
 The current workflow has no MCP-server, issue-tracker, or third-party-skill dependencies. `git` is required; `gh` is conditional on GitHub PR delivery in `story-loop`.
+
+`docs-analitics` requires agent delegation for independent analysis and validation. Route across models when the runtime supports selection; report unavailable telemetry explicitly. If delegation is unavailable, report that independent validation is blocked and do not claim it completed or integrate unvalidated documentation.
 
 If a future change adds a dependency, document what requires it, where to obtain it, and the behavior when unavailable in `README.md` and `CHANGELOG.md` in the same change.
 
