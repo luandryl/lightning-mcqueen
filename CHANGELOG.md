@@ -2,6 +2,12 @@
 
 Material workflow changes, newest first.
 
+## 2026-09-10 — Confirmed documentation generation
+
+- Added `docs-generate` to generate consolidated documentation from validated material already present in the repository, branches, or history.
+- Translated its operating instructions into English while keeping confirmation prompts, generated documentation, audit artifacts, telemetry, and final reports in PT-BR.
+- Preserved the mandatory confirmation gate before repository analysis, agent spawning, searches, or documentation changes.
+
 ## 2026-09-10 — Repository documentation archaeology
 
 - Added `docs-analitics` to audit existing documentation across the current state, unmerged branches, and history, with independent factual validation before consolidation.
