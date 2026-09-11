@@ -2,7 +2,7 @@
 
 > Ka-chow: from domain discovery to verified implementation, one story at a time.
 
-Lightning McQueen is my personal fork of [brunoanken/my-agentic-workflow](https://github.com/brunoanken/my-agentic-workflow), reduced and adapted to my real day-to-day workflow. It intentionally keeps only the seven skills I use.
+Lightning McQueen is my personal fork of [brunoanken/my-agentic-workflow](https://github.com/brunoanken/my-agentic-workflow), reduced and adapted to my real day-to-day workflow. It intentionally keeps only the eight skills I use.
 
 The repository is the source of truth. Skill instructions are written in English; generated planning and operational artifacts are written in Brazilian Portuguese (PT-BR).
 
@@ -20,6 +20,7 @@ Start at `write-prd` for a small, semantically clear feature. Use `domain-discov
 
 | Skill | Purpose | Main artifact |
 |---|---|---|
+| `scaffold-context` | Create an executable scaffold and portable AI navigation documentation. | `docs/pre-prd.md`, `AGENTS.md`, and `CLAUDE.md` |
 | `docs-analitics` | Audit existing documentation against implementation with independent validation and model-routing telemetry. | Validated `docs/`, `AGENTS.md`, and PT-BR reports in `.docs-analitics/` |
 | `docs-generate` | Generate consolidated documentation from validated existing material after explicit user confirmation. | Validated `docs/`, `AGENTS.md`, and PT-BR reports in `.docs-analitics/` |
 | `domain-discovery` | Reconstruct domain semantics from the problem and existing system evidence. | `docs/domain/DOMAIN.md` |
@@ -42,6 +43,18 @@ By default, the installer symlinks each directory in `skills/` into both `~/.cla
 
 Use `./install.sh --target claude` or `./install.sh --target codex` to install for only one runtime.
 
+Install a newly added skill without reinstalling the others:
+
+```bash
+./install.sh --skill scaffold-context
+./install.sh -s scaffold-context --target claude
+./install.sh --skill=scaffold-context --target codex
+```
+
+The name must match a directory in `skills/`. Unknown names fail before any installation. Omit `--skill` to install all skills.
+
+`scaffold-context` supports Claude Code and Codex; its generated `CLAUDE.md` imports the canonical `AGENTS.md`. The optional `agents/openai.yaml` contains Codex UI metadata. Running the scaffold requires Python 3.11+; frontend verification also requires Node/npm, and Docker builds require Docker when selected. Dependency installation requires network access.
+
 Use `./install.sh --force` only when you want an existing real skill directory backed up and replaced by the repository symlink.
 
 ## Requirements
@@ -55,7 +68,7 @@ There are no MCP-server, issue-tracker, or third-party-skill dependencies.
 ## Repository Layout
 
 ```text
-skills/          The seven hand-written skills and their local references
+skills/          The eight hand-written skills and their local references
 install.sh       Symlinks repository skills into Claude Code and Codex
 CLAUDE.md        Maintenance rules for this content repository
 CHANGELOG.md     Material workflow changes

@@ -1,0 +1,845 @@
+[
+  {
+    "id": "gitignore",
+    "destination": ".gitignore",
+    "condition": "always",
+    "classification": "EXACT_TEMPLATE",
+    "variables": [],
+    "sha256": "fa44b35ee88fa521b441369870fe4f29fd53466b610f85c8e3686cf1a763011e",
+    "template": "templates/gitignore.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "dockerignore",
+    "destination": ".dockerignore",
+    "condition": "docker",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [],
+    "sha256": "5508c1af3e523f9033de515f19c64cb07a47ebd4fa85842737659a03d4267411",
+    "template": "templates/dockerignore.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "logging",
+    "destination": "{{ backend_dir }}app/core/logging.py",
+    "condition": "backend",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [],
+    "sha256": "b87498fbbad6bcc06880905a979528bae7b5f6d77333765294e9c25d9ac3d8c4",
+    "template": "templates/logging.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "middleware",
+    "destination": "{{ backend_dir }}app/core/middleware.py",
+    "condition": "backend and not google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [],
+    "sha256": "62f8e63ee0f6d298f6f78044263c42063d87e935df4958a87c6bd75fa5b7c091",
+    "template": "templates/middleware.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "mongo",
+    "destination": "{{ backend_dir }}app/db/mongo.py",
+    "condition": "backend",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [],
+    "sha256": "1e49d3069711908b2c7d3d38c41ab127a7ac97a86e5a7c3d925e9f6c1887052b",
+    "template": "templates/mongo.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "app-init",
+    "destination": "{{ backend_dir }}app/__init__.py",
+    "condition": "backend",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "project_name"
+    ],
+    "sha256": "ba6a17d9f40a5ecc18be88819a3c8edd2f5008e01a3728a3ef1d76afbecea0de",
+    "template": "templates/app-init.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "api-init",
+    "destination": "{{ backend_dir }}app/api/__init__.py",
+    "condition": "backend",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [],
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "template": "templates/api-init.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "v1-init",
+    "destination": "{{ backend_dir }}app/api/v1/__init__.py",
+    "condition": "backend",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [],
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "template": "templates/v1-init.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "core-init",
+    "destination": "{{ backend_dir }}app/core/__init__.py",
+    "condition": "backend",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [],
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "template": "templates/core-init.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "db-init",
+    "destination": "{{ backend_dir }}app/db/__init__.py",
+    "condition": "backend",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [],
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "template": "templates/db-init.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "tests-init",
+    "destination": "{{ backend_dir }}tests/__init__.py",
+    "condition": "backend",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [],
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "template": "templates/tests-init.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "python-version",
+    "destination": "{{ backend_dir }}.python-version",
+    "condition": "backend",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [],
+    "sha256": "61141e9590171b900fdf709e7ea8f050d5c2a69198d4a4a1977d7c45186307e5",
+    "template": "templates/python-version.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "pyproject",
+    "destination": "{{ backend_dir }}pyproject.toml",
+    "condition": "backend and not google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "description_json",
+      "project_name"
+    ],
+    "sha256": "02bfd1b95812f5b2dc28f9f391045234c1085a3e32f67f931a5c709370df877a",
+    "template": "templates/pyproject.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "requirements",
+    "destination": "{{ backend_dir }}requirements.txt",
+    "condition": "backend and not google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [],
+    "sha256": "04d2009438338018e13cc014497c0c56172fc9990759754b7232ff19100a1e18",
+    "template": "templates/requirements.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "make",
+    "destination": "{{ backend_dir }}Makefile",
+    "condition": "backend and not google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "backend_port"
+    ],
+    "sha256": "b66a71d66c0266b47692cf89777e97556dea96ce41e69bb7edf9b04ee4778137",
+    "template": "templates/make.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "settings",
+    "destination": "{{ backend_dir }}app/core/config.py",
+    "condition": "backend and not google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "backend_port",
+      "frontend_container_port",
+      "frontend_port",
+      "project_name"
+    ],
+    "sha256": "5ad38d778587cc74f9dab965f0a0532fe941d469625160eadfc246230cb8b818",
+    "template": "templates/settings.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "health",
+    "destination": "{{ backend_dir }}app/api/health.py",
+    "condition": "backend",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "project_name"
+    ],
+    "sha256": "d46148217e08ecf9d0693a0e29343aef62355fe1d56f9500061fd64a36f15af1",
+    "template": "templates/health.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "version",
+    "destination": "{{ backend_dir }}app/api/v1/versao.py",
+    "condition": "backend",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "project_name"
+    ],
+    "sha256": "a3445bc241c70d566e7d36c9751478450fe1c31131c4b571ba846487179796c0",
+    "template": "templates/version.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "main",
+    "destination": "{{ backend_dir }}app/main.py",
+    "condition": "backend and not google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "description_json",
+      "project_name"
+    ],
+    "sha256": "41bb8c29ccd18ac92eafe29d0620a599d5ea721ace6ada1dbc8abeb2b27eb8b0",
+    "template": "templates/main.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "env",
+    "destination": "{{ backend_dir }}.env.example",
+    "condition": "backend and not google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "backend_port",
+      "project_name"
+    ],
+    "sha256": "42d9bd21e15687c80fa99e66a1a5bdfd02809d8e15324695b47f62017ddb6d99",
+    "template": "templates/env.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "backend-readme",
+    "destination": "{{ backend_dir }}README.md",
+    "condition": "backend",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "docs_from_backend",
+      "project_description",
+      "project_name"
+    ],
+    "sha256": "484a82cf1f8945ef75ce2e8d7085c0691c71958dddc29ab8b86646b0bb8acc89",
+    "template": "templates/backend-readme.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "conftest",
+    "destination": "{{ backend_dir }}tests/conftest.py",
+    "condition": "backend and not google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [],
+    "sha256": "72bb0c35cfd7b06ed45e330e35a822801e406d4f369eede1d6a60cb9cc07bf30",
+    "template": "templates/conftest.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "health-test",
+    "destination": "{{ backend_dir }}tests/test_health.py",
+    "condition": "backend",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "project_name"
+    ],
+    "sha256": "e604ee74a7e5fb94e0dc84f102b40d1296a4c5caeeb9687e5bd4cb8baef59002",
+    "template": "templates/health-test.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "tsconfig",
+    "destination": "front/tsconfig.json",
+    "condition": "frontend",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [],
+    "sha256": "770b4140bbb581e2dfd9ea9946ffc9c75a1d86ba7d2db5f77c83e37cbdf9d808",
+    "template": "templates/tsconfig.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "tsconfig-app",
+    "destination": "front/tsconfig.app.json",
+    "condition": "frontend",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [],
+    "sha256": "cbc682b7d8e6436ad2ebc46ed55cb5e4eb6114070a8681e691a0521ee5858c46",
+    "template": "templates/tsconfig-app.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "tsconfig-node",
+    "destination": "front/tsconfig.node.json",
+    "condition": "frontend",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [],
+    "sha256": "97fa97c5f5b8f04f911b83f2f77cb49f8abfd9aeb789600fd6825ccc5feef6c0",
+    "template": "templates/tsconfig-node.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "postcss",
+    "destination": "front/postcss.config.js",
+    "condition": "frontend",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [],
+    "sha256": "e32657baf631d7c5f4dc67b4b2ee0ec8e7d5b3c41860e09cddce7c0377cd80bc",
+    "template": "templates/postcss.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "tailwind",
+    "destination": "front/tailwind.config.js",
+    "condition": "frontend",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [],
+    "sha256": "e782365107f0207d09c2704947e5dee6afc5f5c9cab5efa48494f288cbbc2582",
+    "template": "templates/tailwind.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "css",
+    "destination": "front/src/index.css",
+    "condition": "frontend and not google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [],
+    "sha256": "9f848f6f0cd6a0a585e73aa1dc616c600e1ffe7fdc67bf00d2335460e0c2243c",
+    "template": "templates/css.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "react-main",
+    "destination": "front/src/main.tsx",
+    "condition": "frontend",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [],
+    "sha256": "3b84a47fa7a25af7d6008c3c9529fae1ac66e91556f690a6359df465efa3966a",
+    "template": "templates/react-main.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "test-setup",
+    "destination": "front/src/test/setup.ts",
+    "condition": "frontend",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [],
+    "sha256": "2c1e055c04425f5e22a50b871ed06e2c63cfddfc6ac49e35818ee9433d9cd14f",
+    "template": "templates/test-setup.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "package",
+    "destination": "front/package.json",
+    "condition": "frontend and not google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "project_name"
+    ],
+    "sha256": "70c81596642ff87f94ba4fb22db3b685548e7bb556cc25d6fade91cbdc00e3dc",
+    "template": "templates/package.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "package-lock",
+    "destination": "front/package-lock.json",
+    "condition": "frontend and not google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "project_name"
+    ],
+    "sha256": "0707cc0d967d32b2789b7076c2cb5dd1b1c411728904c03011158642aa2d4c0d",
+    "template": "templates/package-lock.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "vite",
+    "destination": "front/vite.config.ts",
+    "condition": "frontend",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "backend_port",
+      "env_prefix",
+      "frontend_port"
+    ],
+    "sha256": "60f4f8f24599551d381f469e9f672459155a199154fb1484b9e80ac358e8cd35",
+    "template": "templates/vite.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "html",
+    "destination": "front/index.html",
+    "condition": "frontend and not google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "project_name"
+    ],
+    "sha256": "0f3c9378b807ab57d25460a01d4154734f33d4277f337758edbdbb473976ce5b",
+    "template": "templates/html.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "react-app",
+    "destination": "front/src/App.tsx",
+    "condition": "frontend and not google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "project_name"
+    ],
+    "sha256": "46952f287a8e12a333dd8259d1560274b8fbf841ba1baa3976491e85ffd05bf1",
+    "template": "templates/react-app.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "react-test",
+    "destination": "front/src/test/App.test.tsx",
+    "condition": "frontend and not google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "project_name"
+    ],
+    "sha256": "e616fb4a2d0a9f328623067ee01e1951ff06fa4818862940e3107dfafc870953",
+    "template": "templates/react-test.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "runtime",
+    "destination": "front/public/runtime-config.js",
+    "condition": "frontend",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "env_prefix"
+    ],
+    "sha256": "9d0d012f3d844869add11b74fb44f2b9f5b86416c8e5ca5194eb45c7393d5332",
+    "template": "templates/runtime.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "nginx",
+    "destination": "front/nginx.conf",
+    "condition": "frontend and docker and not google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "env_prefix",
+      "project_name"
+    ],
+    "sha256": "d9f983993721559c5b4d54056bfd5aff340070354c07c91ecbe119160cfd798a",
+    "template": "templates/nginx.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "front-start",
+    "destination": "front/start.sh",
+    "condition": "frontend and docker",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "env_prefix",
+      "project_name"
+    ],
+    "sha256": "32c12ada7d02469ec1ac74a7b183dae8819c7295b656f2f2202adeb5e1fb4cb7",
+    "template": "templates/front-start.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "docker-full",
+    "destination": "build/Dockerfile",
+    "condition": "frontend and docker",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "backend_dir",
+      "backend_port",
+      "project_name"
+    ],
+    "sha256": "457a737c3d791e52e036cdbcbec90c5b8bbab66b9f6b8d7dd9a2e04069c9a329",
+    "template": "templates/docker-full.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "docker-back",
+    "destination": "build/Dockerfile",
+    "condition": "backend and not frontend and docker",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "backend_dir",
+      "backend_port"
+    ],
+    "sha256": "e91e57cc0639a7f53dc1d5cbc6542b4dbb45a0817364aeba8356bd8f556fd879",
+    "template": "templates/docker-back.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "entrypoint",
+    "destination": "build/docker-entrypoint.sh",
+    "condition": "docker and not google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "backend_port"
+    ],
+    "sha256": "c7976b3b89c0aef5b2cafd99112c1c0188a39ab2c835327018dc0c4e06ecb1ee",
+    "template": "templates/entrypoint.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "back-ci",
+    "destination": ".github/workflows/back-ci.yml",
+    "condition": "ci",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "backend_glob",
+      "backend_workdir"
+    ],
+    "sha256": "3adb4a8dc3d0f6bc26d0a5adc1f1172c3e819bac63d9a82690059a8c49550ebb",
+    "template": "templates/back-ci.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "front-ci",
+    "destination": ".github/workflows/front-ci.yml",
+    "condition": "frontend and ci",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [],
+    "sha256": "063d07d753880f4932a44555209f1dadec77678463f4e7738c3ee45636a047a1",
+    "template": "templates/front-ci.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "compose-back",
+    "destination": "docker-compose.yml",
+    "condition": "docker and not frontend and not local_mongo",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "backend_dir",
+      "backend_port"
+    ],
+    "sha256": "f99796d5c66fde1c6cb4bbfc4a6366822162a2648360fd14729af5a7bbf27969",
+    "template": "templates/compose-back.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "compose-full",
+    "destination": "docker-compose.yml",
+    "condition": "docker and frontend and not local_mongo",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "backend_dir",
+      "backend_port",
+      "env_prefix",
+      "frontend_container_port"
+    ],
+    "sha256": "d2b683159d75a436088afc628ad7ab5cd55792ff2733e7746d67d03d962c9ba2",
+    "template": "templates/compose-full.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "root-readme",
+    "destination": "README.md",
+    "condition": "monorepo and not google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "project_description",
+      "project_name"
+    ],
+    "sha256": "eaa92f766da0bd7782534beb301ac9beca608e6ca143e439a5fa6103108dfe8d",
+    "template": "templates/root-readme.tpl",
+    "catalog_version": 2
+  },
+  {
+    "id": "main-google",
+    "destination": "{{ backend_dir }}app/main.py",
+    "condition": "backend and google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "description_json",
+      "project_name"
+    ],
+    "template": "templates/main-google.tpl",
+    "sha256": "fbb6b5e64c65cd401a581ae7075b03ae4da6b5dda6c97851733d0656c3869086",
+    "catalog_version": 2
+  },
+  {
+    "id": "settings-google",
+    "destination": "{{ backend_dir }}app/core/config.py",
+    "condition": "backend and google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "backend_port",
+      "frontend_container_port",
+      "frontend_port",
+      "project_name"
+    ],
+    "template": "templates/settings-google.tpl",
+    "sha256": "820e5567e5a0e43eda854ef2bb3508dc28946e197721424325e9bc188f0d5e3e",
+    "catalog_version": 2
+  },
+  {
+    "id": "pyproject-google",
+    "destination": "{{ backend_dir }}pyproject.toml",
+    "condition": "backend and google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "description_json",
+      "project_name"
+    ],
+    "template": "templates/pyproject-google.tpl",
+    "sha256": "5e564b434ab720cc22c269aae8bab9be7779a524cf193dcb6ec419642df9557c",
+    "catalog_version": 2
+  },
+  {
+    "id": "requirements-google",
+    "destination": "{{ backend_dir }}requirements.txt",
+    "condition": "backend and google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [],
+    "template": "templates/requirements-google.tpl",
+    "sha256": "e1ddffb44a177294996311f193f5f53367e6c7fd6aaa62ced515b4ccaa036bb6",
+    "catalog_version": 2
+  },
+  {
+    "id": "env-google",
+    "destination": "{{ backend_dir }}.env.example",
+    "condition": "backend and google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "backend_port",
+      "frontend_port",
+      "project_name"
+    ],
+    "template": "templates/env-google.tpl",
+    "sha256": "a398a12f9b3a4a2bf3e996bdeed8af3a754f3f6a6c08b4dfc7c92bd970036e18",
+    "catalog_version": 2
+  },
+  {
+    "id": "conftest-google",
+    "destination": "{{ backend_dir }}tests/conftest.py",
+    "condition": "backend and google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "frontend_port"
+    ],
+    "template": "templates/conftest-google.tpl",
+    "sha256": "e2c14b646691b8e216cec824e8a88503fce178bc1fb1038b48c74221e4b93417",
+    "catalog_version": 2
+  },
+  {
+    "id": "react-app-google",
+    "destination": "front/src/App.tsx",
+    "condition": "frontend and google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "frontend_theme",
+      "project_name"
+    ],
+    "template": "templates/react-app-google.tpl",
+    "sha256": "684fcc0bb887731a707b4289306390e1db79b020a73f3e665f4cc6aacb4d890c",
+    "catalog_version": 2
+  },
+  {
+    "id": "react-test-google",
+    "destination": "front/src/test/App.test.tsx",
+    "condition": "frontend and google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [],
+    "template": "templates/react-test-google.tpl",
+    "sha256": "137c1070b6c21a0b8a611166a6e4b840656b16f384e6ca30c0b1b2c65e2d64b7",
+    "catalog_version": 2
+  },
+  {
+    "id": "css-google",
+    "destination": "front/src/index.css",
+    "condition": "frontend and google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [],
+    "template": "templates/css-google.tpl",
+    "sha256": "72b822c99cff6283b486fb1e3af56b195153706f09e5ac8467969f31953215a8",
+    "catalog_version": 2
+  },
+  {
+    "id": "html-google",
+    "destination": "front/index.html",
+    "condition": "frontend and google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "frontend_theme",
+      "project_name"
+    ],
+    "template": "templates/html-google.tpl",
+    "sha256": "84c487336713e28d5eecf6271c5a3c5a15ef7f19889bbcba98dacd336ea71347",
+    "catalog_version": 2
+  },
+  {
+    "id": "compose-back-mongo",
+    "destination": "docker-compose.yml",
+    "condition": "docker and not frontend and local_mongo",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "backend_dir",
+      "backend_port"
+    ],
+    "template": "templates/compose-back-mongo.tpl",
+    "sha256": "e4a625b2b2d6a1e82cbebe8a9636292841cd58a574e3827cd570c280f5422033",
+    "catalog_version": 2
+  },
+  {
+    "id": "compose-full-mongo",
+    "destination": "docker-compose.yml",
+    "condition": "docker and frontend and local_mongo",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "backend_dir",
+      "backend_port",
+      "env_prefix",
+      "frontend_container_port"
+    ],
+    "template": "templates/compose-full-mongo.tpl",
+    "sha256": "523a5baf1849e82ddf91dd4bf1fa3651201f129c35b6908097c7ed5b0737b994",
+    "catalog_version": 2
+  },
+  {
+    "id": "auth-google",
+    "destination": "{{ backend_dir }}app/api/auth.py",
+    "condition": "google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [],
+    "template": "templates/auth-google.tpl",
+    "sha256": "b4a63141aa7e0801f4e2fca253c923b60f229431abc6b5184be9026828314c0e",
+    "catalog_version": 2
+  },
+  {
+    "id": "auth-test-google",
+    "destination": "{{ backend_dir }}tests/test_auth.py",
+    "condition": "google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "frontend_port",
+      "project_name"
+    ],
+    "template": "templates/auth-test-google.tpl",
+    "sha256": "166ba7ed7c4a22308d06c31d14756ba0e1466cb629a09382f4b4fce81f991b73",
+    "catalog_version": 2
+  },
+  {
+    "id": "auth-readme",
+    "destination": "AUTH.md",
+    "condition": "google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "backend_dir",
+      "frontend_container_port",
+      "frontend_port"
+    ],
+    "template": "templates/auth-readme.tpl",
+    "sha256": "ac2ddd9eb768d9b36bdeff0fa9e191168bb489bf4b78ad5b62aeabaef1416603",
+    "catalog_version": 2
+  },
+  {
+    "id": "configure-local",
+    "destination": "scripts/configure-local.py",
+    "condition": "google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "backend_dir",
+      "frontend_container_port",
+      "frontend_port"
+    ],
+    "template": "templates/configure-local.tpl",
+    "sha256": "4cbaba1bbbabe784813464b238d3afaa047e74ee2361c58793edca74933694d9",
+    "catalog_version": 2
+  },
+  {
+    "id": "middleware-google",
+    "destination": "{{ backend_dir }}app/core/middleware.py",
+    "condition": "backend and google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [],
+    "template": "templates/middleware-google.tpl",
+    "sha256": "673d29c44de14942049415d8d0cb4c178df342c2e140d822a4acf52f59fad0a4",
+    "catalog_version": 2
+  },
+  {
+    "id": "entrypoint-google",
+    "destination": "build/docker-entrypoint.sh",
+    "condition": "docker and google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "backend_port"
+    ],
+    "template": "templates/entrypoint-google.tpl",
+    "sha256": "cff2a5b49529013dd98c8607e5f618a0f89d070d32823601f4ed797a083440b9",
+    "catalog_version": 2
+  },
+  {
+    "id": "make-google",
+    "destination": "{{ backend_dir }}Makefile",
+    "condition": "backend and google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "backend_port"
+    ],
+    "template": "templates/make-google.tpl",
+    "sha256": "e37e03b941664015158471cb63ba4476cb9c783725c9594d19f087d35ad24c7c",
+    "catalog_version": 2
+  },
+  {
+    "id": "package-google",
+    "destination": "front/package.json",
+    "condition": "frontend and google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "project_name"
+    ],
+    "template": "templates/package-google.tpl",
+    "sha256": "2b85d888b0cf758675acf79d2e3f0d25d84d249f6125034243162b0c8e436bcf",
+    "catalog_version": 2
+  },
+  {
+    "id": "package-lock-google",
+    "destination": "front/package-lock.json",
+    "condition": "frontend and google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "project_name"
+    ],
+    "template": "templates/package-lock-google.tpl",
+    "sha256": "62d5a15e396c77dd88370c5ec3979df3ef265c3249fc428c08d3b9230d48779c",
+    "catalog_version": 2
+  },
+  {
+    "id": "nginx-google",
+    "destination": "front/nginx.conf",
+    "condition": "frontend and docker and google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "env_prefix",
+      "project_name"
+    ],
+    "template": "templates/nginx-google.tpl",
+    "sha256": "cba431243b5987d27db6cca2432470fcb5710997082cfd760a131cde17ac8eae",
+    "catalog_version": 2
+  },
+  {
+    "id": "root-readme-google",
+    "destination": "README.md",
+    "condition": "monorepo and google_auth",
+    "classification": "CONDITIONAL_TEMPLATE",
+    "variables": [
+      "backend_port",
+      "frontend_container_port",
+      "frontend_port",
+      "frontend_theme",
+      "project_description",
+      "project_name"
+    ],
+    "template": "templates/root-readme-google.tpl",
+    "sha256": "ffc377aeeb3652020554ce6ab4ed96d2d138e908a2f7c83e57135dd88a4c25c5",
+    "catalog_version": 2
+  }
+]

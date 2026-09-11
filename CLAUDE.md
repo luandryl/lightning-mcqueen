@@ -1,6 +1,6 @@
 # Lightning McQueen
 
-Lightning McQueen is Luan Andryl's personal fork of `brunoanken/my-agentic-workflow`, adapted to his day-to-day workflow and focused on seven hand-written skills for Claude Code and Codex.
+Lightning McQueen is Luan Andryl's personal fork of `brunoanken/my-agentic-workflow`, adapted to his day-to-day workflow and focused on eight hand-written skills for Claude Code and Codex.
 
 Upstream: <https://github.com/brunoanken/my-agentic-workflow>
 
@@ -16,6 +16,7 @@ Invoke an installed skill through the runtime's skill mechanism when the task ge
 
 Only these skill directories belong in the repository:
 
+- `scaffold-context`
 - `docs-analitics`
 - `docs-generate`
 - `domain-discovery`

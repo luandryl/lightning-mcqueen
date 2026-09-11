@@ -2,6 +2,12 @@
 
 Material workflow changes, newest first.
 
+## 2026-09-11 — Selective installation and scaffold portability
+
+- Added `--skill NAME`, `--skill=NAME`, and `-s NAME`, composable with runtime targets and collision backups.
+- Normalized the new directory to `scaffold-context` and added generated `CLAUDE.md` importing `AGENTS.md` for Claude Code.
+- Documented Python, Node/npm, conditional Docker, and dependency network requirements for scaffold execution.
+
 ## 2026-09-10 — Confirmed documentation generation
 
 - Added `docs-generate` to generate consolidated documentation from validated material already present in the repository, branches, or history.

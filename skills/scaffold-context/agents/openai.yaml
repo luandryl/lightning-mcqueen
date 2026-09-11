@@ -1,0 +1,4 @@
+interface:
+  display_name: "Scaffold Context"
+  short_description: "Cria scaffold e contexto para a primeira entrega"
+  default_prompt: "Use $scaffold-context para iniciar meu projeto com templates e contexto persistente."

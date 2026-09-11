@@ -14,10 +14,11 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SRC_DIR="$REPO_DIR/skills"
 FORCE=0
 TARGET="all"
+SKILL=""
 
 usage() {
   cat <<'EOF'
-Usage: ./install.sh [--target claude|codex|all] [--force]
+Usage: ./install.sh [--target claude|codex|all] [--skill NAME] [--force]
 
 Targets:
   all      Install into ~/.claude/skills and ~/.codex/skills (default)
@@ -25,6 +26,7 @@ Targets:
   codex    Install only into ~/.codex/skills
 
 Options:
+  -s, --skill NAME  Install only this skill directory (default: all skills)
   --force  Back up and replace real files or directories that collide
   -h, --help
 EOF
@@ -32,6 +34,27 @@ EOF
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
+    -s|--skill|--skill=*)
+      if [[ -n "$SKILL" ]]; then
+        echo "error: --skill can only be specified once" >&2
+        exit 2
+      fi
+      if [[ "$1" == --skill=* ]]; then
+        SKILL="${1#*=}"
+        shift
+      else
+        if [[ $# -lt 2 ]]; then
+          echo "error: --skill requires a skill directory name" >&2
+          exit 2
+        fi
+        SKILL="$2"
+        shift 2
+      fi
+      if [[ ! "$SKILL" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
+        echo "error: invalid skill name '$SKILL'; expected a kebab-case directory name" >&2
+        exit 2
+      fi
+      ;;
     --force)
       FORCE=1
       shift
@@ -86,9 +109,17 @@ fi
 
 # Without nullglob an empty skills/ leaves the glob unexpanded and we would link a
 # directory literally named "*" into the destination.
-shopt -s nullglob
-skill_dirs=("$SRC_DIR"/*/)
-shopt -u nullglob
+if [[ -n "$SKILL" ]]; then
+  if [[ ! -f "$SRC_DIR/$SKILL/SKILL.md" ]]; then
+    echo "error: unknown or invalid skill '$SKILL'; expected skills/$SKILL/SKILL.md" >&2
+    exit 2
+  fi
+  skill_dirs=("$SRC_DIR/$SKILL/")
+else
+  shopt -s nullglob
+  skill_dirs=("$SRC_DIR"/*/)
+  shopt -u nullglob
+fi
 
 if [[ ${#skill_dirs[@]} -eq 0 ]]; then
   echo "error: no skills found in $SRC_DIR" >&2
